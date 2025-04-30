@@ -6,9 +6,14 @@
       {{ showScanner ? 'Cerrar escáner' : 'Escanear producto' }}
     </button>
   
+    <!-- Lector QR -->
     <div *ngIf="showScanner" class="mt-6">
-      <!-- Aquí aparece el lector de QR cuando showScanner es true -->
-      <qr-scanner></qr-scanner>
+      <qr-scanner (qrCodeScanned)="onQrScanned($event)"></qr-scanner>
+    </div>
+  
+    <!-- Mapa con ingredientes -->
+    <div *ngIf="showMap" class="mt-6 h-96">
+      <div #mapContainer class="w-full h-full rounded-lg border"></div>
     </div>
   </div>
   

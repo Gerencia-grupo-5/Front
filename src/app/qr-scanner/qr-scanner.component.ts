@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
+// qr-scanner.component.ts
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { BarcodeFormat } from '@zxing/library';
 
 @Component({
@@ -11,29 +12,25 @@ import { BarcodeFormat } from '@zxing/library';
   styleUrls: ['./qr-scanner.component.css']
 })
 export class QrScannerComponent {
-  scannedCode: string | null = null;
-  hasDevices = false;
-  hasPermission = false;
-  availableDevices: MediaDeviceInfo[] = [];
+  @Output() qrCodeScanned = new EventEmitter<string>();
 
-  // Aquí la corrección: usamos el enum en vez de string
   formats: BarcodeFormat[] = [ BarcodeFormat.QR_CODE ];
+  availableDevices: MediaDeviceInfo[] = [];
+  hasPermission = false;
+  hasDevices = false;
 
-  onCamerasFound(devices: MediaDeviceInfo[]): void {
+  onCamerasFound(devices: MediaDeviceInfo[]) {
     this.hasDevices = !!devices.length;
     this.availableDevices = devices;
   }
-
-  onHasPermission(has: boolean): void {
+  onHasPermission(has: boolean) {
     this.hasPermission = has;
   }
-
-  onScanSuccess(result: string): void {
-    this.scannedCode = result;
+  onScanSuccess(result: string) {
     console.log('QR leído:', result);
+    this.qrCodeScanned.emit(result);
   }
-
-  onScanError(error: any): void {
-    console.error('Error escaneando:', error);
+  onScanError(err: any) {
+    console.error(err);
   }
 }

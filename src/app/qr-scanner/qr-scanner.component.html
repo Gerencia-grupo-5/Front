@@ -5,7 +5,7 @@
       (permissionResponse)="onHasPermission($event)"
       (scanSuccess)="onScanSuccess($event)"
       (scanError)="onScanError($event)"
-      [formats]="formats"   
+      [formats]="formats"
       class="w-full max-w-md mb-6 border-2 border-gray-200 rounded-xl overflow-hidden"
     ></zxing-scanner>
   
@@ -14,11 +14,6 @@
     </div>
     <div *ngIf="hasDevices === false" class="text-red-600 mb-4">
       ⚠️ No se encontró ninguna cámara.
-    </div>
-  
-    <div *ngIf="scannedCode" class="w-full max-w-md bg-gray-50 p-4 rounded-lg shadow-sm">
-      <h3 class="text-lg font-semibold mb-2">Resultado:</h3>
-      <p class="break-words">{{ scannedCode }}</p>
     </div>
   </div>
   
