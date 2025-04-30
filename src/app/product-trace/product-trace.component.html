@@ -1,19 +1,19 @@
-<div class="p-4">
+<div class="bg-light min-h-screen p-8 flex flex-col items-center">
     <button
       (click)="toggleScanner()"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded"
+      class="bg-primary hover:bg-dark text-light font-semibold py-3 px-6 rounded-full shadow-md transition"
     >
       {{ showScanner ? 'Cerrar escáner' : 'Escanear producto' }}
     </button>
   
     <!-- Lector QR -->
-    <div *ngIf="showScanner" class="mt-6">
+    <div *ngIf="showScanner" class="mt-8">
       <qr-scanner (qrCodeScanned)="onQrScanned($event)"></qr-scanner>
     </div>
   
     <!-- Mapa con ingredientes -->
-    <div *ngIf="showMap" class="mt-6 h-96">
-      <div #mapContainer class="w-full h-full rounded-lg border"></div>
+    <div *ngIf="showMap" class="mt-8 w-full max-w-4xl h-96 rounded-2xl border-2 border-charcoal overflow-hidden">
+      <div #mapContainer class="w-full h-full"></div>
     </div>
   </div>
   

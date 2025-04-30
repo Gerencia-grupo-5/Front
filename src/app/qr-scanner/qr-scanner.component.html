@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center p-4">
+<div class="bg-light p-6 rounded-2xl shadow-lg flex flex-col items-center">
     <zxing-scanner
       [device]="availableDevices[0]"
       (camerasFound)="onCamerasFound($event)"
@@ -6,13 +6,13 @@
       (scanSuccess)="onScanSuccess($event)"
       (scanError)="onScanError($event)"
       [formats]="formats"
-      class="w-full max-w-md mb-6 border-2 border-gray-200 rounded-xl overflow-hidden"
+      class="w-full max-w-md mb-6 border-2 border-sand rounded-xl overflow-hidden"
     ></zxing-scanner>
   
-    <div *ngIf="!hasPermission" class="text-red-600 mb-4">
+    <div *ngIf="!hasPermission" class="text-accent mb-4">
       📷 Necesito permiso para usar la cámara.
     </div>
-    <div *ngIf="hasDevices === false" class="text-red-600 mb-4">
+    <div *ngIf="hasDevices === false" class="text-accent mb-4">
       ⚠️ No se encontró ninguna cámara.
     </div>
   </div>
