@@ -1,2 +1,14 @@
-<p>product-trace works!</p>
-<qr-scanner></qr-scanner>
+<div class="p-4">
+    <button
+      (click)="toggleScanner()"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded"
+    >
+      {{ showScanner ? 'Cerrar escáner' : 'Escanear producto' }}
+    </button>
+  
+    <div *ngIf="showScanner" class="mt-6">
+      <!-- Aquí aparece el lector de QR cuando showScanner es true -->
+      <qr-scanner></qr-scanner>
+    </div>
+  </div>
+  

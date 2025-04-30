@@ -1,14 +1,18 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { QrScannerComponent } from '../qr-scanner/qr-scanner.component';
 
 @Component({
   selector: 'app-product-trace',
-  imports: [QrScannerComponent],
   standalone: true,
+  imports: [CommonModule, QrScannerComponent],
   templateUrl: './product-trace.component.html',
-  styleUrl: './product-trace.component.css'
-  
+  styleUrls: ['./product-trace.component.css']
 })
 export class ProductTraceComponent {
+  showScanner = false;
 
+  toggleScanner(): void {
+    this.showScanner = !this.showScanner;
+  }
 }
