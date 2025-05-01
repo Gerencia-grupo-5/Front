@@ -1,0 +1,7 @@
+<h2 class="text-lg font-bold mb-4">Lista de Ingredientes</h2>
+<ul class="space-y-2">
+  <li *ngFor="let ingrediente of ingredientes" class="border p-2 rounded">
+    <strong>{{ ingrediente.nombre }}</strong><br>
+    Usado en: {{ ingrediente.usadoEn }}
+  </li>
+</ul>

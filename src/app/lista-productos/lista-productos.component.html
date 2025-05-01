@@ -1,0 +1,8 @@
+<h2 class="text-lg font-bold mb-4">Lista de Productos</h2>
+<ul class="space-y-2">
+  <li *ngFor="let producto of productos" class="border p-2 rounded">
+    <strong>{{ producto.nombre }}</strong><br>
+    Categoría: {{ producto.categoria }}<br>
+    Precio: ${{ producto.precio }}
+  </li>
+</ul>
