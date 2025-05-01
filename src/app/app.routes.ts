@@ -3,8 +3,12 @@ import { ProductTraceComponent } from './product-trace/product-trace.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { ListaProductosComponent } from './lista-productos/lista-productos.component';
 import { ListaIngredientesComponent } from './lista-ingredientes/lista-ingredientes.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { CreateProductComponent } from './create-product/create-product.component';
+import { CreateIngredientComponent } from './create-ingredient/create-ingredient.component';
 
 export const routes: Routes = [
+    {path: '', component: LandingPageComponent, title: 'Landing Page', }, 
     {
         path: '',
         component: InicioComponent,
@@ -29,5 +33,15 @@ export const routes: Routes = [
         path: 'lista-ingredientes',
         component: ListaIngredientesComponent,
         title: 'Lista de Ingredientes',
+    },
+    {
+        path: 'create-product',
+        component: CreateProductComponent,
+        title: 'Crear producto',
+    },
+    {
+        path: 'create-ingredient',
+        component: CreateIngredientComponent,
+        title: 'Crear ingrediente',
     }
 ];
