@@ -1,0 +1,22 @@
+<div class="form-container">
+    <h2>Create Ingredient</h2>
+    <form (ngSubmit)="onSubmit()" #ingredientForm="ngForm">
+      <div class="form-group">
+        <label for="name">Ingredient Name:</label>
+        <input type="text" id="name" class="form-control" [(ngModel)]="ingredient.name" name="name" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="origin">Origin:</label>
+        <input type="text" id="origin" class="form-control" [(ngModel)]="ingredient.origin" name="origin" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="certification">Sustainability Certification:</label>
+        <input type="text" id="certification" class="form-control" [(ngModel)]="ingredient.certification" name="certification" required />
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Create Ingredient</button>
+    </form>
+  </div>
+  
