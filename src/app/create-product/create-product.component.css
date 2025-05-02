@@ -1,8 +1,10 @@
 .form-container {
     max-width: 600px;
     margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
     padding: 1.5rem;
-    background-color: #f3f3f3;
+    background-color: #e7fff0;
     border-radius: 10px;
   }
   
@@ -24,5 +26,9 @@
   
   button {
     margin-top: 1rem;
+  }
+
+  h2 {
+    font-family:Georgia, 'Times New Roman', Times, serif;
   }
   

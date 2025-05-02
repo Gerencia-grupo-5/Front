@@ -1,22 +1,21 @@
 <div class="form-container">
-    <h2>Create Ingredient</h2>
-    <form (ngSubmit)="onSubmit()" #ingredientForm="ngForm">
-      <div class="form-group">
-        <label for="name">Ingredient Name:</label>
-        <input type="text" id="name" class="form-control" [(ngModel)]="ingredient.name" name="name" required />
-      </div>
-  
-      <div class="form-group">
-        <label for="origin">Origin:</label>
-        <input type="text" id="origin" class="form-control" [(ngModel)]="ingredient.origin" name="origin" required />
-      </div>
-  
-      <div class="form-group">
-        <label for="certification">Sustainability Certification:</label>
-        <input type="text" id="certification" class="form-control" [(ngModel)]="ingredient.certification" name="certification" required />
-      </div>
-  
-      <button type="submit" class="btn btn-primary">Create Ingredient</button>
-    </form>
-  </div>
-  
+  <h2 class="text-2xl font-semibold text-gray-800 mb-6">Crear Ingrediente</h2>
+  <form (ngSubmit)="onSubmit()" #ingredientForm="ngForm" class="space-y-4">
+    <div class="form-group">
+      <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Ingrediente:</label>
+      <input type="text" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="ingredient.name" name="name" required placeholder="Ej: Carne de pastoreo" />
+    </div>
+
+    <div class="form-group">
+      <label for="origin" class="block text-gray-700 text-sm font-bold mb-2">Origen:</label>
+      <input type="text" id="origin" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="ingredient.origin" name="origin" required placeholder="Ej: Llanos Orientales de Colombia" />
+    </div>
+
+    <div class="form-group">
+      <label for="certification" class="block text-gray-700 text-sm font-bold mb-2">Certificación de Sostenibilidad:</label>
+      <input type="text" id="certification" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="ingredient.certification" name="certification" required placeholder="Ej: USDA Organic" />
+    </div>
+
+    <button type="submit" class="bg-[#5e967d] hover:bg-[#1B4332] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear Ingrediente</button>
+  </form>
+</div>

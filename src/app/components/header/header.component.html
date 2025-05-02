@@ -1,27 +1,34 @@
 <header class="bg-[#D3C59D] text-white shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-19">
-      
-        <div class="flex items-center space-x-3">
-            <picture class="w-15 h-19 rounded-full overflow-hidden  flex items-center justify-center">
-                <img src="/assets/images/logo.png" alt="Kibbletrack logo" class="w-19 h-19 object-contain">
-              </picture>
-              
-            <span class="text-xl font-bold tracking-wide">Kibbletrack</span>
-          </div>
-          
-  
-      <!-- Menú de navegación -->
-      <nav class="hidden md:flex items-center space-x-6">
-        <a href="#" class="hover:text-[#212121] transition">Inicio</a>
-        <a href="#" class="hover:text-[#212121] transition">Productos</a>
-        <a href="#" class="hover:text-[#212121] transition">Contacto</a>
-      </nav>
-  
-      <div>
-        <button class="bg-[#5e967d]  font-semibold px-4 py-2 rounded hover:bg-[#1B4332] transition">
-          Soy productor
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-19">
+
+    <div class="flex items-center space-x-3">
+      <picture class="w-15 h-19 rounded-full overflow-hidden  flex items-center justify-center">
+        <img src="/assets/images/logo.png" alt="Kibbletrack logo" class="w-19 h-19 object-contain">
+      </picture>
+
+      <span class="text-xl font-bold tracking-wide">Kibbletrack</span>
+    </div>
+
+    <nav class="hidden md:flex items-center space-x-6">
+      <a href="#" class="hover:text-[#212121] transition">Inicio</a>
+      <a href="#" class="hover:text-[#212121] transition">Productos</a>
+      <a href="#" class="hover:text-[#212121] transition">Contacto</a>
+    </nav>
+
+    <div class="relative">
+      <button (click)="toggleProducerOptions()" class="bg-[#5e967d] font-semibold px-4 py-2 rounded hover:bg-[#1B4332] transition">
+        Soy productor
+      </button>
+      <div *ngIf="showProducerOptions" class="absolute right-0 mt-2 bg-white shadow-md rounded-md overflow-hidden z-10">
+        <button (click)="goToCreateProduct()" class="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 transition">
+          <img src="assets/images/product-icon.png" alt="Crear Producto" class="w-6 h-6 mr-2">
+          Crear producto
+        </button>
+        <button (click)="goToCreateIngredient()" class="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 transition">
+          <img src="assets/images/ingredient-icon.webp" alt="Crear Ingrediente" class="w-6 h-6 mr-2">
+          Crear ingrediente
         </button>
       </div>
     </div>
-  </header>
-  
+  </div>
+</header>

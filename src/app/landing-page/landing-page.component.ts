@@ -29,5 +29,6 @@ export class LandingPageComponent {
   goToScan() {
     this.router.navigate(['/product-trace']);
   }
+
 }
 

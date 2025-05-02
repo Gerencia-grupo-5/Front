@@ -1,0 +1,9 @@
+.relative button + .absolute {
+    min-width: 150px; /* Ancho mínimo del menú desplegable */
+  }
+  
+  .absolute button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
