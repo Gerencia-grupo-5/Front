@@ -1,58 +1,58 @@
-/* 0. Texto introductorio */
-.product-trace-container .intro-text {
-    text-align: center;
-    color: #2D6A4F;
-    font-size: 1.25rem;   /* 20px */
-    font-weight: 600;
-    margin-bottom: 1.5rem; /* 24px */
-  }
-  
-  /* 1. Contenedor principal */
-  .product-trace-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;             /* 24px */
-    padding: 2rem;           /* 32px */
-    background-color: #F9F9F9;
-    min-height: 100vh;
-  }
-  
-  /* 2. Botón */
-  .product-trace-container button {
-    background-color: #2D6A4F;
-    color: #FFFFFF;
-    font-weight: 600;
-    padding: 0.75rem 1.5rem; /* 12px 24px */
-    border: none;
-    border-radius: 9999px;   /* redondo */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .product-trace-container button:hover {
-    background-color: #1B4332;
-  }
-  
-  /* 3. Contenedor del escáner */
-  .product-trace-container .qr-container {
-    width: 100%;
-    max-width: 28rem;       /* 448px */
-  }
-  
-  /* 4. Contenedor del mapa */
-  .product-trace-container .map-container {
-    width: 100%;
-    max-width: 64rem;       /* 1024px */
-    height: 24rem;          /* 384px */
-    border: 2px solid #212121;
-    border-radius: 0.5rem;  /* 8px */
-    overflow: hidden;
-  }
-  
-  /* 5. Inner del mapa */
-  .product-trace-container .map-inner {
-    width: 100%;
-    height: 100%;
-  }
-  
+.product-trace-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: #F9F9F9;
+  min-height: 100vh;
+}
+
+.intro-text {
+  text-align: center;
+  color: #2D6A4F;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.scan-btn {
+  background-color: #2D6A4F;
+  color: #FFF;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background-color .3s;
+}
+
+.scan-btn:hover {
+  background-color: #1B4332;
+}
+
+.qr-container {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.product-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1B4332;
+  margin-top: 1rem;
+}
+
+.map-container {
+  width: 100%;
+  max-width: 64rem;
+  height: 24rem;
+  border: 2px solid #212121;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.map-inner {
+  width: 100%;
+  height: 100%;
+}
