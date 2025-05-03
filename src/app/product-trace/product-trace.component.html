@@ -1,13 +1,11 @@
 <div class="product-trace-container">
 
-  <!-- Texto introductorio -->
   <p class="intro-text">
     Escanea el QR de tu producto para descubrir el origen de sus ingredientes.<br>
     En el mapa verás cada ingrediente según su origen geográfico.
   </p>
 
-  <!-- Botón -->
-  <button (click)="toggleScanner()">
+  <button class="scan-btn" (click)="toggleScanner()">
     {{ showScanner ? 'Cerrar escáner' : 'Escanear producto' }}
   </button>
 
@@ -16,6 +14,10 @@
     <qr-scanner (qrCodeScanned)="onQrScanned($event)"></qr-scanner>
   </div>
 
+  <!-- Nombre del producto -->
+  <h3 *ngIf="showMap" class="product-name">{{ productName }}</h3>
+
+  <h4 *ngIf="showMap"> Ingredientes y su origen:</h4>
   <!-- Mapa -->
   <div *ngIf="showMap" class="map-container">
     <div #mapContainer class="map-inner"></div>

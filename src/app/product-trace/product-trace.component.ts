@@ -10,6 +10,12 @@ import {
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { QrScannerComponent } from '../qr-scanner/qr-scanner.component';
 
+interface IngredientInfo {
+  name: string;
+  country: string;
+  coords: [number, number];
+}
+
 @Component({
   selector: 'app-product-trace',
   standalone: true,
@@ -20,17 +26,12 @@ import { QrScannerComponent } from '../qr-scanner/qr-scanner.component';
 export class ProductTraceComponent implements AfterViewInit, OnDestroy {
   showScanner = false;
   showMap = false;
-  scannedCode: string | null = null;
+  productName = '';
+  ingredients: IngredientInfo[] = [];
 
   @ViewChild('mapContainer', { static: false })
   mapContainer!: ElementRef<HTMLDivElement>;
-  private map: any;  // Leaflet.Map, pero lo dejamos any por la import dinámica
-
-  private ingredients: { name: string; coords: [number, number] }[] = [
-    { name: 'Tomate', coords: [4.7110, -74.0721] },
-    { name: 'Maíz',   coords: [6.2442, -75.5812] },
-    { name: 'Café',   coords: [3.4516, -76.5310] }
-  ];
+  private map: any;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -41,45 +42,75 @@ export class ProductTraceComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  onQrScanned(code: string) {
-    this.scannedCode = code;
+  onQrScanned(qrText: string) {
+    // 1) parsear líneas
+    const lines = qrText.split('\n').map(l => l.trim()).filter(l => l);
+    // 2) extraer nombre
+    const prodLine = lines.find(l => l.startsWith('🛒 Producto:'));
+    this.productName = prodLine
+      ? prodLine.replace('🛒 Producto:','').trim()
+      : 'Producto desconocido';
+    // 3) encontrar índice de "🧾 Ingredientes:"
+    const idx = lines.findIndex(l => l.startsWith('🧾 Ingredientes'));
+    // 4) parsear ingredientes desde idx+1 en adelante
+    this.ingredients = [];
+    if (idx >= 0) {
+      for (let i = idx + 1; i < lines.length; i++) {
+        const line = lines[i].replace(/^-/, '').trim();
+        // formato: Name (Country) [📍 lat, long]
+        const m = line.match(/^(.+)\s+\((.+)\)\s+\[📍\s*([-\d.]+),\s*([-\d.]+)\]/);
+        if (m) {
+          const [, name, country, lat, lng] = m;
+          this.ingredients.push({
+            name: name.trim(),
+            country: country.trim(),
+            coords: [ parseFloat(lat), parseFloat(lng) ]
+          });
+        }
+      }
+    }
+
+    // 5) mostrar mapa
     this.showScanner = false;
     this.showMap = true;
     this.initMap();
   }
 
-  ngAfterViewInit() {
-    // Nada aquí; esperamos a initMap()
-  }
+  ngAfterViewInit() {}
 
   private async initMap() {
-    // Solo en navegador
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
-    // Si ya existía, lo destruimos
-    if (this.map) {
-      this.map.remove();
-    }
-
-    // Import dinámico de Leaflet
+    if (!isPlatformBrowser(this.platformId)) return;
+    if (this.map) this.map.remove();
+  
     const L = await import('leaflet');
-
-    // Inicializamos
-    this.map = L.map(this.mapContainer.nativeElement).setView([4.5, -74.1], 6);
-
+  
+    // 1. Definir el icono personalizado
+    const customIcon = L.icon({
+      iconUrl: 'assets/images/marker.png',  // ruta relativa a /dist
+      iconSize:     [32, 32],               // tamaño del icono
+      iconAnchor:   [16, 32],               // punto del icono que corresponderá a la ubicación (centro-bajo)
+      popupAnchor:  [0, -32]                // desde el icono dónde sale el popup
+    });
+  
+    // 2. Inicializar mapa (centro genérico o primer ingrediente)
+    const center: [number, number] = this.ingredients.length
+      ? this.ingredients[0].coords
+      : [4.5, -74.1];
+    this.map = L.map(this.mapContainer.nativeElement)
+            .setView(center, 6);
+  
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this.map);
-
-    // Agregamos marcadores
-    this.ingredients.forEach(item => {
-      L.marker(item.coords)
+  
+    // 3. Añadir marcadores con el icono personalizado
+    this.ingredients.forEach(ing => {
+      L.marker(ing.coords, { icon: customIcon })
        .addTo(this.map)
-       .bindPopup(`<strong>${item.name}</strong>`);
+       .bindPopup(`<strong>${ing.name}</strong><br>${ing.country}`);
     });
   }
+  
 
   ngOnDestroy() {
     if (this.map && isPlatformBrowser(this.platformId)) {
