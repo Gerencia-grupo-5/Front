@@ -1,36 +1,62 @@
 <div class="form-container">
-  <h2 class="text-2xl font-Merriweather text-gray-800 mb-6">Crear Producto</h2>
-  <form class="space-y-4">
+  <h2 class="text-2xl font-serif font-semibold text-gray-800 mb-6">Crear Producto</h2>
+  <form (ngSubmit)="onSubmit()" class="space-y-4">
     <div class="form-group">
-      <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Producto:</label>
-      <input type="text" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.name" name="name" required placeholder="Ej: Dogfood - Balance" />
+      <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Producto:</label>
+      <input type="text" id="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.nombre" name="nombre" required placeholder="Ej: Dogfood - Balance" />
     </div>
 
     <div class="form-group">
       <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
-      <textarea id="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.description" name="description" required placeholder="Ej: Alimento completo y equilibrado para perros adultos de todas las razas."></textarea>
+      <textarea id="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.descripcion" name="descripcion" required placeholder="Ej: Alimento completo y equilibrado para perros adultos de todas las razas."></textarea>
     </div>
 
     <div class="form-group">
-      <label for="ingredients" class="block text-gray-700 text-sm font-bold mb-2">Ingredientes (separados por coma):</label>
-      <input type="text" id="ingredients" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.ingredients" name="ingredients" required placeholder="Ej: Carne de res, zanahorias, ..." />
+      <label for="ingredients" class="block text-gray-700 text-sm font-bold mb-2">Ingredientes:</label>
+      <div class="border rounded p-2">
+        <div *ngFor="let ingredient of ingredientsList" class="mb-1">
+          <input type="checkbox" [id]="'ingredient-' + ingredient._id" [value]="ingredient._id" (change)="toggleIngredient(ingredient._id)">
+          <label [for]="'ingredient-' + ingredient._id" class="ml-2">{{ ingredient.name }}</label>
+        </div>
+        <ng-container *ngIf="ingredientsList.length === 0 && !errorMessage">
+          Cargando ingredientes...
+        </ng-container>
+        <ng-container *ngIf="errorMessage">
+          <p class="text-red-500">{{ errorMessage }}</p>
+        </ng-container>
+      </div>
+      <small class="text-gray-500">Selecciona los ingredientes para este producto.</small>
     </div>
 
     <div class="form-group">
-      <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Categoría:</label>
-      <select id="category" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.category" name="category" required>
-        <option value="Perros">Perros</option>
-        <option value="Gatos">Gatos</option>
-      </select>
+      <label for="empresa" class="block text-gray-700 text-sm font-bold mb-2">Empresa:</label>
+      <input type="text" id="empresa" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.empresa" name="empresa" required placeholder="Ej: ACME Foods" />
     </div>
 
     <div class="form-group">
-      <label for="manufactureDate" class="block text-gray-700 text-sm font-bold mb-2">Fecha de Fabricación:</label>
-      <input type="date" id="manufactureDate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.manufactureDate" name="manufactureDate" required />
+      <label for="vencimiento" class="block text-gray-700 text-sm font-bold mb-2">Fecha de Vencimiento:</label>
+      <input type="date" id="vencimiento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.vencimiento" name="vencimiento" required />
+    </div>
+
+    <div class="form-group">
+      <label for="precio" class="block text-gray-700 text-sm font-bold mb-2">Precio:</label>
+      <input type="number" id="precio" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.precio" name="precio" required placeholder="Ej: 19.99" />
+    </div>
+
+    <div class="form-group">
+      <label for="costo" class="block text-gray-700 text-sm font-bold mb-2">Costo:</label>
+      <input type="number" id="costo" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="product.costo" name="costo" required placeholder="Ej: 12.50" />
     </div>
 
     <button type="submit" class="bg-[#5e967d] hover:bg-[#1B4332] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear Producto</button>
   </form>
+
+  <div *ngIf="creationMessage" class="mt-4 text-green-500">
+    {{ creationMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="mt-4 text-red-500">
+    {{ errorMessage }}
+  </div>
 
   <div *ngIf="qrCodeUrl" class="mt-6">
     <h3 class="text-xl font-semibold text-gray-800 mb-2">Código QR Generado:</h3>
