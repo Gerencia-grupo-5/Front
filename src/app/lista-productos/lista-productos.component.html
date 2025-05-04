@@ -1,8 +1,30 @@
-<h2 class="text-lg font-bold mb-4">Lista de Productos</h2>
-<ul class="space-y-2">
-  <li *ngFor="let producto of productos" class="border p-2 rounded">
-    <strong>{{ producto.nombre }}</strong><br>
-    Categoría: {{ producto.categoria }}<br>
-    Precio: ${{ producto.precio }}
-  </li>
-</ul>
+<div class="productos-container">
+  <h2 class="text-2xl font-serif font-semibold text-gray-800 mb-6">Lista de Productos</h2>
+
+  <div *ngFor="let producto of productos" class="producto-card">
+    <div class="producto-header">
+      <h3 class="text-lg font-semibold text-gray-800">{{ producto.nombre }}</h3>
+      <p class="text-sm text-gray-600">ID: {{ producto._id }}</p>
+    </div>
+
+    <div class="producto-details">
+      <p><strong>Empresa:</strong> {{ producto.empresa }}</p>
+      <p><strong>Vencimiento:</strong> {{ producto.vencimiento | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Precio:</strong> {{ producto.precio | currency }}</p>
+      <p><strong>Costo:</strong> {{ producto.costo | currency }}</p>
+    </div>
+
+    <div class="ingredientes">
+      <p><strong>Ingredientes:</strong></p>
+      <ul>
+        <li *ngFor="let ingredienteId of producto.ingredientes">
+          {{ getIngredientName(ingredienteId) }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>

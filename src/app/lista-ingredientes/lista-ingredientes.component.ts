@@ -1,18 +1,35 @@
 import { Component } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-
 
 @Component({
   selector: 'app-lista-ingredientes',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './lista-ingredientes.component.html',
   styleUrl: './lista-ingredientes.component.css'
 })
 export class ListaIngredientesComponent {
-  ingredientes = [
-    { nombre: 'Pollo deshidratado', usadoEn: 'Perro y Gato' },
-    { nombre: 'Maíz amarillo', usadoEn: 'Perro' },
-    { nombre: 'Harina de pescado', usadoEn: 'Gato' },
-    { nombre: 'Aceite de salmón', usadoEn: 'Perro y Gato' },
-  ];
+  ingredientes: any[] = [];
+  errorMessage = '';
+  backendUrl = 'http://localhost:3000/ingredients/all';
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.http.get<{ ok: boolean; error: string; data: any[] }>(this.backendUrl)
+      .subscribe({
+        next: (response) => {
+          if (response.ok) {
+            this.ingredientes = response.data;
+          } else {
+            this.errorMessage = response.error;
+          }
+        },
+        error: (error) => {
+          console.error('Error al cargar ingredientes', error);
+          this.errorMessage = 'No se pudo obtener la lista de ingredientes.';
+        }
+      });
+  }
 }

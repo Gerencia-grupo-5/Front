@@ -1,7 +1,19 @@
-<h2 class="text-lg font-bold mb-4">Lista de Ingredientes</h2>
-<ul class="space-y-2">
-  <li *ngFor="let ingrediente of ingredientes" class="border p-2 rounded">
-    <strong>{{ ingrediente.nombre }}</strong><br>
-    Usado en: {{ ingrediente.usadoEn }}
-  </li>
-</ul>
+<div class="ingredientes-container">
+  <h2 class="text-2xl font-serif font-semibold text-gray-800 mb-6">Lista de Ingredientes</h2>
+
+  <div *ngFor="let ing of ingredientes" class="ingrediente-card">
+    <div class="ingrediente-header">
+      <h3 class="text-lg font-semibold text-gray-800">{{ ing.name }}</h3>
+      <p class="text-sm text-gray-600">ID: {{ ing._id }}</p>
+    </div>
+
+    <div class="ingrediente-details">
+      <p><strong>Proveedor:</strong> {{ ing.provider }}</p>
+      <p><strong>País:</strong> {{ ing.country }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>
