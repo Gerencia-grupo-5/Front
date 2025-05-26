@@ -76,28 +76,30 @@ export class CreateProductComponent {
     this.product.ingredientes = this.selectedIngredients;
   }
 
-  onSubmit() {
-    this.http.post<{ ok: boolean; error: string; data: any }>(this.backendUrl, this.product)
-      .subscribe({
-        next: (response) => {
-          if (response.ok) {
-            this.creationMessage = 'Producto creado exitosamente.';
-            this.errorMessage = '';
-            this.resetForm();
-            // Puedes redirigir al usuario a otra página si lo deseas
-            // this.router.navigate(['/lista-productos']);
-          } else {
-            this.errorMessage = response.error;
-            this.creationMessage = '';
-          }
-        },
-        error: (error) => {
-          this.errorMessage = 'Error al conectar con el servidor.';
-          this.creationMessage = '';
-          console.error('Error al crear producto', error);
+onSubmit() {
+  this.http
+    .post(this.backendUrl, this.product, { responseType: 'text' })
+    .subscribe({
+      next: (raw: string) => {
+        // Busca exactamente el patrón new ObjectId('...') junto a _id:
+        const match = raw.match(/_id:\s*new ObjectId\('([0-9a-fA-F]{24})'\)/);
+        if (match && match[1]) {
+          const id = match[1];
+          this.qrCodeUrl = `http://localhost:3000/qr?id=${id}`;
+          this.creationMessage = 'Producto creado exitosamente.';
+          this.errorMessage = '';
+        } else {
+          this.errorMessage = 'No pude extraer el ID del producto.';
         }
-      });
-  }
+      },
+      error: (err) => {
+        console.error(err);
+        this.errorMessage = 'Error en la petición.';
+      }
+    });
+}
+
+
   resetForm() {
     this.product = {
       nombre: '',
