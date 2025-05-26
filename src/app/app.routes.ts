@@ -6,9 +6,10 @@ import { ListaIngredientesComponent } from './lista-ingredientes/lista-ingredien
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { CreateIngredientComponent } from './create-ingredient/create-ingredient.component';
+import { TropicalBitesComponent } from './tropical-bites/tropical-bites.component';
 
 export const routes: Routes = [
-    {path: '', component: LandingPageComponent, title: 'Landing Page', }, 
+    {path: '', component: LandingPageComponent, title: 'Landing Page', },
     {
         path: '',
         component: InicioComponent,
@@ -43,5 +44,10 @@ export const routes: Routes = [
         path: 'create-ingredient',
         component: CreateIngredientComponent,
         title: 'Crear ingrediente',
+    },
+    {
+      path: 'tropical-bites',
+      component: TropicalBitesComponent,
+      title: 'Tropical Bites',
     }
 ];

@@ -30,5 +30,9 @@ export class LandingPageComponent {
     this.router.navigate(['/product-trace']);
   }
 
+  goToTropicalBites() {
+      this.router.navigate(['/tropical-bites']);
+  }
+
 }
 
